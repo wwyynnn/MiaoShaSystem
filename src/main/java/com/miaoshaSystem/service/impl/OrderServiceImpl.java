@@ -121,13 +121,22 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public String gengerateOrderNo(){
-        //订单号16位
+        //订单号20位
         StringBuilder stringBuilder = new StringBuilder();
 
-        //前8位时间信息（年月日）
+        //前14位时间信息（年月日时分秒）
         LocalDateTime now = LocalDateTime.now(); //当前时间
+//        LocalDate date = now.toLocalDate();//获取日期，格式yyyy-MM-dd
+//        LocalTime time = now.toLocalTime();//获取时间，格式HH:mm:ss,但是秒是带小数点的，如19.645，不能直接用
+        int hour = now.getHour();
+        int minu = now.getMinute();
+        int sec = now.getSecond();
         String nowDate = now.format(DateTimeFormatter.ISO_DATE).replace("-", "");
+        //不能直接String nowTime = now..format(DateTimeFormatter.ISO_TIME).replace(":","")，因为秒是带小数点的，如23.173，会变成214819.645
         stringBuilder.append(nowDate);
+        stringBuilder.append(hour);
+        stringBuilder.append(minu);
+        stringBuilder.append(sec);
 
         //中间6位为自增序列（目前）（通过新建一张表sequence_info来实现自增序列值)
         //获取当前sequence
