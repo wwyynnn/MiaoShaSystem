@@ -1,15 +1,23 @@
 # MiaoShaSystem
-简单的一个Java电商秒杀下单项目
-主要功能：用户登录，用户注册，查看商品列表，查看商品详情，创建商品，验证码功能（不是真的短信验证码，是在后台打印体现）
-技术实现：软件环境：IDEA
-        语言：Java
-        框架：SpringBoot
-        数据库连接：MyBatis
-        数据库：MySQL
-源于《慕课网》免费课程：《SpringBoot构建电商基础秒杀项目》--教师：龙虾三少
-注释写的很详细
-
-项目结构：
+## 简单的一个Java电商秒杀下单项目
+- 主要功能：
+	- 用户登录，
+	- 用户注册，
+	- 查看商品列表，
+	- 查看商品详情，
+	- 创建商品，
+	- 验证码功能（不是真的短信验证码，是在后台打印体现）
+- 技术实现：
+	- 软件环境：IDEA
+	- 语言：Java
+	- 框架：SpringBoot
+	- 数据库连接：MyBatis
+	- 数据库：MySQL
+- 源于《慕课网》免费课程：《SpringBoot构建电商基础秒杀项目》--教师：龙虾三少
+- 注释写的很详细
+***
+	
+	项目结构：
 miaoshaSystem
 ├── html                                      // 前端页面  
 │   ├── static                                // 静态资源文件夹（css,js等）
@@ -72,6 +80,6 @@ miaoshaSystem
 ├── .gitignore                                 // gitignore 
 ├── pom.xml                                    // parent pom
 
-数据库：
+	数据库：
 名字：miaosha
 文件名：miaosha_2020-08-12.sql
