@@ -1,0 +1,122 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--引入css文件-->
+    <link href="static/assets/global/plugins/bootstrap/css/bootstrap.min.css" style="stylesheet" type="text/css"/>
+    <link href="static/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
+    <link href="static/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
+
+    <!--引入jQuery版本-->
+    <script src="static/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+</head>
+<body class="login">
+    <div class="content">
+        <h3 class="form-title">
+            创建商品
+        </h3>
+        <div class="form-group">
+            <label class="control-label">商品名</label>
+            <div>
+                <input class="form-control" type="text" placeholder="商品名" name="title" id="title" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">商品描述</label>
+            <div>
+                <input class="form-control" type="text" placeholder="商品描述" name="description" id="description" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">价格</label>
+            <div>
+                <input class="form-control" type="text" placeholder="价格" name="price" id="price" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">图片</label>
+            <div>
+                <input class="form-control" type="text" placeholder="图片" name="imgUrl" id="imgUrl" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">库存</label>
+            <div>
+                <input class="form-control" type="text" placeholder="库存" name="stock" id="stock" />
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn blue" id="create" type="submit">
+                提交创建
+            </button>
+        </div>
+    </div>
+
+
+</body>
+
+<script>
+    //所有jQuery的动态绑定元素必须在document.ready完成。即在document渲染成功后再执行对应操作
+    jQuery(document).ready(function(){
+        //绑定click事件。采用ajax方式实现
+        $("#create").on("click", function () {
+            //判空处理
+            var title = $("#title").val();
+            var description = $("#description").val();
+            var imgUrl = $("#imgUrl").val();
+            var price = $("#price").val();
+            var stock = $("#stock").val();
+            //字段判空的校验
+            if(title == null || title == ""){
+                alert("商品名不能为空");
+                return false;
+            }
+            if(description == null || description == ""){
+                alert("描述不能为空");
+                return false;
+            }
+            if(imgUrl == null || imgUrl == ""){
+                alert("图片url不能为空");
+                return false;
+            }
+            if(price == null || price == ""){
+                alert("价格不能为空");
+                return false;
+            }
+            if(stock == null || stock == ""){
+                alert("价格称不能为空");
+                return false;
+            }
+
+            $.ajax({//与各个controller相配，在controller的 @RequestMapping(value = "xx",method = {RequestMethod.POST})处体现
+                //ajax头
+                type:"POST",
+                contentType:"application/x-www-form-urlencoded",
+                url:"http://localhost:8080/item/create",
+                //传参数
+                data:{
+                    "title":title,
+                    "description":description,
+                    "imgUrl":imgUrl,
+                    "price":price,
+                    "stock":stock
+                },
+                xhrFields:{withCredentials:true},//与后端@CrossOrigin(allowCredentials="true", allowedHeaders="*")配合解决跨域session共享
+                //回调函数
+                success:function(data){//只要被服务端正确处理即success
+                    if(data.status == "success"){//说明业务逻辑请求成功
+                        alert("创建成功");
+                    }else{
+                        alert("创建失败1，原因"+data.data.errMsg);
+                    }
+                },
+                error:function(data){//当没有被正确处理，如网络问题或异常原因
+                    alert("创建失败2，原因为"+data.responseText);
+                }
+            });
+            return false;
+        });
+
+    })
+</script>
+
+</html>
