@@ -1,0 +1,86 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--引入css文件-->
+    <link href="static/assets/global/plugins/bootstrap/css/bootstrap.min.css" style="stylesheet" type="text/css"/>
+    <link href="static/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
+    <link href="static/assets/admin/pages/css/login.css" rel="stylesheet" type="text/css"/>
+
+    <!--引入jQuery版本-->
+    <script src="static/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <div class="content">
+        <h3 class="form-title">
+            商品列表浏览
+        </h3>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>商品名</th>
+                        <th>商品图片</th>
+                        <th>商品描述</th>
+                        <th>商品价格</th>
+                        <th>商品库存</th>
+                        <th>商品销量</th>
+                    </tr>
+                </thead>
+                <tbody id="container">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</body>
+
+<script>
+    //定义全局商品数组信息
+    var g_itemList=[];
+    //所有jQuery的动态绑定元素必须在document.ready完成。即在document渲染成功后再执行对应操作
+    jQuery(document).ready(function(){
+        $.ajax({//与各个controller相配，在controller的 @RequestMapping(value = "xx",method = {RequestMethod.POST})处体现
+            //ajax头
+            type:"GET",
+            contentType:"application/x-www-form-urlencoded",
+            url:"http://localhost:8080/item/list",
+            xhrFields:{withCredentials:true},//与后端@CrossOrigin(allowCredentials="true", allowedHeaders="*")配合解决跨域session共享
+            //回调函数
+            success:function(data){//只要被服务端正确处理即success
+                if(data.status == "success"){//说明业务逻辑请求成功
+                    g_itemList = data.data;
+                    reloadDom();
+                }else{
+                    alert("获取失败1，原因"+data.data.errMsg);
+                }
+            },
+            error:function(data){//当没有被正确处理，如网络问题或异常原因
+                alert("获取失败2，原因为"+data.responseText);
+            }
+        });
+    });
+
+    function reloadDom(){
+        for(var i =0;i<g_itemList.length;i++){
+            var itemView = g_itemList[i];
+            var dom = "<tr data-id='"+itemView.id+"' id='itemDetail"+itemView.id+"'>" +
+                "<td>"+itemView.title+"</td>" +
+                "<td><img style='width:100px;height:auto;'src='"+itemView.imgUrl+"'/></td>" +
+                "<td>"+itemView.description+"</td>" +
+                "<td>"+itemView.price+"</td>" +
+                "<td>"+itemView.stock+"</td>" +
+                "<td>"+itemView.sales+"</td>" +
+                "</tr>";
+            $("#container").append($(dom));
+
+            $("#itemDetail"+itemView.id).on("click",function(e){//这个功能是当用户点击itemID时页面会跳转到该商品详情页
+                //window.location.href="getItem.html?id="+itemView.id;//其实在闭包里面访问不了这个元素，因为ID会发生变化。因此在dom那里的tr，加一个data-id的域
+                window.location.href="getItem.html?id="+$(this).data("id");
+            })
+        }
+    }
+</script>
+
+</html>
