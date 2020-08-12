@@ -17,7 +17,7 @@
 - 注释写的很详细
 ***
 	
-	### 项目结构：
+	**项目结构：**
 	miaoshaSystem
 	├── html                                      // 前端页面  
 	│   ├── static                                // 静态资源文件夹（css,js等）
@@ -79,7 +79,8 @@
 	│   ├── ├──├──mybatis-generator.xml            // MyBatis配置文件，从数据库生成DOMapper.xml/ DO.java/ DOMapper.java文件的命令在这里
 	├── .gitignore                                 // gitignore 
 	├── pom.xml                                    // parent pom
+***
 
-	### 数据库：
+	**数据库：**
 	名字：miaosha
 	文件名：miaosha_2020-08-12.sql
