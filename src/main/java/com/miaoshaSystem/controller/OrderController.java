@@ -35,17 +35,18 @@ public class OrderController extends BaseController{
     public CommonReturnType createOrder(@RequestParam(name = "itemId") Integer itemId,
                                         @RequestParam(name = "amount") Integer amount,
                                         @RequestParam(name = "promoId",required = false) Integer promoId) throws BusinessException {
-
+        
+        //在用JMeter/postman测试时，注释掉41-47行。不进行测试，正常使用时，恢复41-47行，注释掉第48行！！（因为JMeter/postman无法模拟登录过程，session无值）
         //获取用户的登陆信息（从userController的login的session中拿去信息）
         Boolean isLogin = (Boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
         if (isLogin == null || !isLogin.booleanValue()) {
             throw new BusinessException("用户还未登录，不能下单", EmBusinessError.USER_NOT_LOGIN);
         }
         UserModel userModel = (UserModel) this.httpServletRequest.getSession().getAttribute("LOGIN_USER");
-
-
+        
         OrderModel orderModel = orderService.createOrder(userModel.getId(), itemId, promoId, amount);
-
+        // OrderModel orderModel = orderService.createOrder(7,itemId, promoId, amount);//写死一个用户，方便postman/JMeter测试
+        
         return CommonReturnType.create(null);
     }
 }
