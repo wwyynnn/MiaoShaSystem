@@ -18,8 +18,7 @@
 - 因为没有部署上线，因此在chrome运行前端时网页url：file:///你存放项目的相对路径/miaoshaSystem/html/login.html 如：file:///Users/xxx/IDEAProjects/miaoshaSystem/html/login.html
 - 后端测试时采用localhost:8080/...
 ***
-	
-	项目结构：
+##### 项目结构：
 	miaoshaSystem
 	├── html                                      // 前端页面  
 	│   ├── static                                // 静态资源文件夹（css,js等）
@@ -82,7 +81,17 @@
 	├── .gitignore                                 // gitignore 
 	├── pom.xml                                    // parent pom
 ***
-
-	数据库：
+##### 数据库：
 	名字：miaosha
 	文件名：miaosha_2020-08-12.sql
+***
+##### 下单购买功能压力测试：
+工具：Apache JMeter 5.0（压力测试）/postman（连接单线程测试）
+JMeter官网网页：https://jmeter.apache.org/
+JMeter安装教程：https://segmentfault.com/a/1190000016639346
+JMeter使用教程：https://www.cnblogs.com/stulzq/p/8971531.html
+p.s. 如果出现问题，一是记得去掉OrderController的extends BaseController，使得原本错误信息能够反馈，二是查看IDEA后端反馈的内容
+（JMeter/postman测试时，没有办法模拟登录信息，因此需要在OrderController那里注释掉从 Session获取userModel以及判定是否用户登录的过程，在调用service时直接硬传入一个userId。）
+官网网页：https://jmeter.apache.org/是
+官网网页：https://jmeter.apache.org/记得
+官网网页：https://jmeter.apache.org/
