@@ -15,6 +15,8 @@
 	- 数据库：MySQL
 - 源于《慕课网》免费课程：《SpringBoot构建电商基础秒杀项目》--教师：龙虾三少
 - 注释写的很详细
+- 因为没有部署上线，因此在chrome运行前端时网页url：file:///你存放项目的相对路径/miaoshaSystem/html/login.html 如：file:///Users/xxx/IDEAProjects/miaoshaSystem/html/login.html
+- 后端测试时采用localhost:8080/...
 ***
 	
 	项目结构：
