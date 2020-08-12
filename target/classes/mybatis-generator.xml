@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- context 是逆向工程的主要配置信息 -->
+    <!-- id：起个名字 -->
+    <!-- targetRuntime：设置生成的文件适用于那个 mybatis 版本 -->
+    <context id="default" targetRuntime="MyBatis3">
+
+        <!-- 改这里！！！！！-->
+        <!--jdbc的数据库连接以及数据库连接地址账号密码-->
+        <!--这里是以变量的形式定义，具体的值在 application.properties 文件中-->
+        <!--jdbc:mysql://localhost:3306/数据库名?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC-->
+        <!-- 我们要解析哪个数据库对应的表的映射到mybatis目录中-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/miaosha"
+                        userId="root"
+                        password="153510">
+        </jdbcConnection>
+
+        <!-- 改这里！！！！！-->
+        <!-- 生成entity类的存放位置-->
+        <!-- entity文件夹也可以叫做dataobject文件夹-->
+        <!-- model定义对应数据库到Java的dto的类-->
+        <!-- targetPackage：生成的数据库实体类所在的包 -->
+        <!-- targetProject：生成的实体类所在的硬盘位置 -->
+        <!-- DataObject 类存放位置 -->
+        <javaModelGenerator targetPackage="com.miaoshaSystem.eneity"
+                            targetProject="src/main/java">
+            <!-- 是否允许子包 -->
+            <property name="enableSubPackages" value="true" />
+            <!-- 是否对modal添加构造函数
+            <property name="constructorBased" value="true" />  -->
+            <!-- 是否清理从数据库中查询出的字符串左右两边的空白字符 -->
+            <property name="trimStrings" value="true" />
+            <!-- 建立modal对象是否不可改变 即生成的modal对象不会有setter方法，只有构造方法
+            <property name="immutable" value="false" />  -->
+        </javaModelGenerator>
+
+        <!-- 改这里！！！！！-->
+        <!-- 生成的映射文件存放的位置，就是resources下的mapping文件夹-->
+        <!-- targetPackage 和 targetProject：生成的 mapper 文件的包和位置 -->
+        <sqlMapGenerator targetPackage="mapping"
+                         targetProject="src/main/resources">
+            <!-- 针对数据库的一个配置，是否把 schema 作为字包名 -->
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 改这里！！！！！-->
+        <!-- 生成的Dao类存放的位置，就是main/java/miaosha下的dao文件夹(dao层）-->
+        <!-- 是客户端代码，生成易于使用的针对model对象和xml配置文件 的代码-->
+        <!-- type = "ANNOTATEDMAPPER": 生成Java model和基于注解的mapper对象；
+             type = "MIXEDMAPPER"：生成基于注解的Java model和相应的mapper对象；
+             type = "XMLMAPPER"：生成SQLMap xml文件和独立的mapper借口； -->
+        <!-- targetPackage 和 targetProject：生成的 interface 文件的包和位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.miaoshaSystem.dao" targetProject="src/main/java">
+            <!-- 针对 oracle 数据库的一个配置，是否把 schema 作为字包名 -->
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 改这里！！！！！-->
+        <!--生成对应表及类名,DO表示dataObject-->
+        <!--enableCountByExample, enableUpdateByExample, enableDeleteByExample, enableSelectByExample设置成false
+            能够避免在dataobject文件夹下生成xxxDOExample文件，因为用不上-->
+<!--        <table tableName="user_info" domainObjectName="UserDO"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false">-->
+<!--        </table>-->
+<!--        <table tableName="user_password" domainObjectName="UserPasswordDO"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false">-->
+<!--        </table>-->
+<!--        <table tableName="item_info" domainObjectName="ItemDO"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false">-->
+<!--        </table>-->
+<!--        <table tableName="item_stock" domainObjectName="ItemStockDO"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false">-->
+<!--        </table>-->
+<!--        <table tableName="order_info" domainObjectName="OrderDO"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false">-->
+<!--        </table>-->
+<!--        <table tableName="sequence_info" domainObjectName="SequenceDO"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false">-->
+<!--        </table>-->
+            <table tableName="promo" domainObjectName="PromoDO"
+                   enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+                   enableSelectByExample="false">
+            </table>
+
+    </context>
+</generatorConfiguration>
